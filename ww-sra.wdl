@@ -73,7 +73,7 @@ task fastqdump {
 
   output {
     File r1_end = "~{sra_id}_1.fastq.gz"
-    File? r2_end = if read_boolean('paired_file') then "~{sra_id}_2.fastq.gz" else null
+    File r2_end = "~{sra_id}_2.fastq.gz"
     Boolean is_paired_end = read_boolean('paired_file')
   }
 
@@ -88,7 +88,7 @@ task fastqdump {
     ncpu: "number of cpus to use during download"
 
     r1_end: "R1 fastq file downloaded for the sample in question"
-    r2_end: "R2 fastq file downloaded for the sample in question (null for single-end reads)"
+    r2_end: "R2 fastq file downloaded for the sample in question (empty file for single-end reads)"
     is_paired_end: "boolean indicating whether the sample in question used paired-end read sequencing"
   }
 }
