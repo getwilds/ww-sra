@@ -68,7 +68,7 @@ jobs:
         override: true
     - 
       name: Install Sprocket
-      run: cargo install sprocket-wdl --version 0.12.2
+      run: cargo install sprocket --version 0.12.2
     - 
       name: Run Sprocket Linting
       run: |
