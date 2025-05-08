@@ -17,7 +17,7 @@ workflow sra_download {
     outputs: {
         r1_fastqs: "array of R1 fastq files for each sample",
         r2_fastqs: "array of R2 fastq files for each sample",
-        is_paired_end: "array of booleans indicating whether each sample used paired-end sequencing",
+        is_paired_end: "array of booleans indicating whether each sample used paired-end sequencing"
     }
   }
 
@@ -51,7 +51,7 @@ task fastqdump {
     outputs: {
         r1_end: "R1 fastq file downloaded for the sample in question",
         r2_end: "R2 fastq file downloaded for the sample in question (empty file for single-end reads)",
-        is_paired_end: "boolean indicating whether the sample used paired-end sequencing",
+        is_paired_end: "boolean indicating whether the sample used paired-end sequencing"
     }
   }
 

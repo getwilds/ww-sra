@@ -69,7 +69,7 @@ jobs:
       name: Sprocket Linting
       uses: stjude-rust-labs/sprocket-action@main
       with:
-        lint: true
+        action: lint
         deny-warnings: true
         deny-notes: true
-        except: TodoComment,ContainerUri
+        except: TodoComment,ContainerUri,TrailingComma
