@@ -22,7 +22,8 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip3 install miniwdl
-    - name: Run miniwdl
+    - 
+      name: Run miniwdl
       run: |
         EXITCODE=0
         echo "Checking WDL files using \`miniwdl check\`."
@@ -37,32 +38,47 @@ jobs:
   womtoolval:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        name: Set Up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-      -
-        name: Pull WOMtool Jarfile
-        run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
-      -
-        name: WOMtool Validation
-        run: java -jar womtool-86.jar validate *.wdl -i *-inputs.json
+    -
+      name: Checkout
+      uses: actions/checkout@v4
+    -
+      name: Set Up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    -
+      name: Pull WOMtool Jarfile
+      run: wget -q https://github.com/broadinstitute/cromwell/releases/download/86/womtool-86.jar
+    -
+      name: WOMtool Validation
+      run: java -jar womtool-86.jar validate *.wdl -i *-inputs.json
 
   sprocket-lint:
     runs-on: ubuntu-latest
     steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v4
-      - 
-        name: Sprocket Validation
-        uses: stjude-rust-labs/sprocket-action@v0.5.0
-        with:
-          lint: true
-          deny-warnings: true
-          deny-notes: true
+    - 
+      name: Checkout
+      uses: actions/checkout@v4
+    - 
+      name: Set Up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - 
+      name: Install Sprocket
+      run: cargo install sprocket-wdl --version 0.5.0
+    - 
+      name: Run Sprocket Linting
+      run: |
+        EXITCODE=0
+        echo "Checking WDL files using Sprocket lint."
+        files=$(find . -name '*.wdl')
+        for file in $files; do
+          echo "  [***] $file [***]"
+          # Run with warnings and notes treated as errors
+          sprocket lint "$file" --deny-warnings --deny-notes
+          EXITCODE=$(($? || EXITCODE))
+        done
+        exit $EXITCODE
