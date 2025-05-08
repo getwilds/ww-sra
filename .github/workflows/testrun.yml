@@ -78,7 +78,7 @@ jobs:
         cat > test-inputs.json << EOL
         {
           "sra_download.sra_id_list": ["SRR13191702"],
-          "n_cpu": 1
+          "sra_download.n_cpu": 1
         }
         EOL
         
