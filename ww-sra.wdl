@@ -23,16 +23,18 @@ workflow sra_download {
 
   parameter_meta {
     sra_id_list: "list of SRA sample IDs to be pulled down"
+    n_cpu: "number of cpus to use during download"
   }
 
   input {
     Array[String] sra_id_list
+    Int n_cpu = 8
   }
 
   scatter (id in sra_id_list) {
     call fastqdump { input:
         sra_id = id,
-        ncpu = 8,
+        ncpu = n_cpu,
     }
   }
 

@@ -25,7 +25,8 @@ jobs:
       run: |
         cat > test-inputs.json << EOL
         {
-          "sra_download.sra_id_list": ["SRR13191702"]
+          "sra_download.sra_id_list": ["SRR13191702"],
+          "n_cpu": 1
         }
         EOL
         # Using a small RNA-seq dataset that downloads quickly
@@ -71,7 +72,8 @@ jobs:
       run: |
         cat > test-inputs.json << EOL
         {
-          "sra_download.sra_id_list": ["SRR13191702"]
+          "sra_download.sra_id_list": ["SRR13191702"],
+          "n_cpu": 1
         }
         EOL
         
@@ -126,7 +128,8 @@ jobs:
 #       run: |
 #         cat > test-inputs.json << EOL
 #         {
-#           "sra_download.sra_id_list": ["SRR13191702"]
+#           "sra_download.sra_id_list": ["SRR13191702"],
+#           "n_cpu": 1
 #         }
 #         EOL
         
