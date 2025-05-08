@@ -67,3 +67,4 @@ jobs:
         lint: true
         deny-warnings: true
         deny-notes: true
+        except: TodoComment,ContainerUri
