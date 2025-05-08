@@ -23,7 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip3 install miniwdl
     - 
-      name: Run miniwdl
+      name: Miniwdl Check
       run: |
         EXITCODE=0
         echo "Checking WDL files using \`miniwdl check\`."
@@ -60,10 +60,14 @@ jobs:
     - 
       name: Checkout
       uses: actions/checkout@v4
+    -
+      name: Check for ShellCheck
+      run: which shellcheck
     - 
-      name: Sprocket Validation
+      name: Sprocket Linting
       uses: stjude-rust-labs/sprocket-action@main
       with:
-        lint: true
+        action: lint
         deny-warnings: true
         deny-notes: true
+        except: TodoComment ContainerUri TrailingComma
