@@ -2,6 +2,11 @@ name: WDL Workflow Test Run
 
 on:
   workflow_dispatch:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    paths:
+      - '**.wdl'
+      - '.github/workflows/test-run.yml'
 
 jobs:
   miniwdl-test:
