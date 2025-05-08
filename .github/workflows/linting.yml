@@ -61,43 +61,9 @@ jobs:
       name: Checkout
       uses: actions/checkout@v4
     - 
-      name: Set Up Rust
-      uses: actions-rs/toolchain@v1
+      name: Sprocket Validation
+      uses: stjude-rust-labs/sprocket-action@main
       with:
-        toolchain: stable
-        override: true
-    - 
-      name: Cache cargo registry
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.cargo/registry
-          ~/.cargo/git
-          ~/.cargo/bin
-        key: ${{ runner.os }}-cargo-sprocket-0.12.2
-        restore-keys: |
-          ${{ runner.os }}-cargo-sprocket-
-    - 
-      name: Install Sprocket
-      run: |
-        # Check if sprocket is already available (from cache)
-        if ! command -v sprocket &> /dev/null; then
-          echo "Installing Sprocket 0.12.2..."
-          cargo install sprocket --version 0.12.2
-        else
-          echo "Sprocket found in cache"
-          sprocket --version
-        fi
-    - 
-      name: Run Sprocket Linting
-      run: |
-        EXITCODE=0
-        echo "Checking WDL files using Sprocket lint."
-        files=$(find . -name '*.wdl')
-        for file in $files; do
-          echo "  [***] $file [***]"
-          # Run with warnings and notes treated as errors
-          sprocket lint "$file" --deny-warnings --deny-notes
-          EXITCODE=$(($? || EXITCODE))
-        done
-        exit $EXITCODE
+        lint: true
+        deny-warnings: true
+        deny-notes: true
