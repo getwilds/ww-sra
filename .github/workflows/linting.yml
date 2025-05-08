@@ -72,4 +72,4 @@ jobs:
         action: lint
         deny-warnings: true
         deny-notes: true
-        except: TodoComment,ContainerUri,TrailingComma
+        except: TodoComment, ContainerUri, TrailingComma
