@@ -22,7 +22,7 @@ workflow sra_download {
   }
 
   parameter_meta {
-    sra_id_list: "list of SRA sample ID's to be pulled down"
+    sra_id_list: "list of SRA sample IDs to be pulled down"
   }
 
   input {
