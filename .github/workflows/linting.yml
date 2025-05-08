@@ -67,8 +67,27 @@ jobs:
         toolchain: stable
         override: true
     - 
+      name: Cache cargo registry
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          ~/.cargo/bin
+        key: ${{ runner.os }}-cargo-sprocket-0.12.2
+        restore-keys: |
+          ${{ runner.os }}-cargo-sprocket-
+    - 
       name: Install Sprocket
-      run: cargo install sprocket --version 0.12.2
+      run: |
+        # Check if sprocket is already available (from cache)
+        if ! command -v sprocket &> /dev/null; then
+          echo "Installing Sprocket 0.12.2..."
+          cargo install sprocket --version 0.12.2
+        else
+          echo "Sprocket found in cache"
+          sprocket --version
+        fi
     - 
       name: Run Sprocket Linting
       run: |
