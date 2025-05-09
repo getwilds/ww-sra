@@ -116,44 +116,45 @@ jobs:
         # If the outputs aren't in the expected directory, check the execution directory
         find $WORKFLOW_DIR -name "*.fastq.gz" | sort
   
-#   sprocket-test:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - 
-#       name: Checkout
-#       uses: actions/checkout@v4
-#     - 
-#       name: Install Sprocket
-#       uses: stjude-rust-labs/sprocket-action@main
-#       with:
-#         action: install
+  sprocket-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - 
+      name: Checkout
+      uses: actions/checkout@v4
+    - 
+      name: Set Up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - 
+      name: Install Sprocket
+      run: cargo install sprocket --version 0.12.2
+    - 
+      name: Create test input JSON
+      run: |
+        cat > test-inputs.json << EOL
+        {
+          "sra_download.sra_id_list": ["SRR13191702"],
+          "sra_download.n_cpu": 1
+        }
+        EOL        
+    - 
+      name: Run workflow with Sprocket
+      run: |
+        mkdir -p test-output/sprocket
+        sprocket run --output-directory test-output/sprocket ww-sra.wdl test-inputs.json
+    -
+      name: Check for output files
+      run: |
+        # List the output directory
+        echo "Sprocket output directory:"
+        find test-output/sprocket -type f | sort
         
-#     - 
-#       name: Create test input JSON
-#       run: |
-#         cat > test-inputs.json << EOL
-#         {
-#           "sra_download.sra_id_list": ["SRR13191702"],
-#           "n_cpu": 1
-#         }
-#         EOL
-        
-#     - 
-#       name: Run workflow with Sprocket
-#       run: |
-#         mkdir -p test-output/sprocket
-#         sprocket run --output-directory test-output/sprocket ww-sra.wdl test-inputs.json
-        
-#     -
-#       name: Check for output files
-#       run: |
-#         # List the output directory
-#         echo "Sprocket output directory:"
-#         find test-output/sprocket -type f | sort
-        
-#         # Check for the expected files
-#         if [ ! -f $(find test-output/sprocket -name "SRR13191702_1.fastq.gz") ]; then
-#           echo "R1 FASTQ file not found in Sprocket output!"
-#           ls -R test-output/sprocket
-#           exit 1
-#         fi
+        # Check for the expected files
+        if [ ! -f $(find test-output/sprocket -name "SRR13191702_1.fastq.gz") ]; then
+          echo "R1 FASTQ file not found in Sprocket output!"
+          ls -R test-output/sprocket
+          exit 1
+        fi
