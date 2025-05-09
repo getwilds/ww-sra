@@ -27,14 +27,7 @@ jobs:
         pip3 install miniwdl
     - 
       name: Create test input JSON
-      run: |
-        cat > test-inputs.json << EOL
-        {
-          "sra_download.sra_id_list": ["SRR13191702"],
-          "sra_download.n_cpu": 1
-        }
-        EOL
-        # Using a small RNA-seq dataset that downloads quickly
+      run: echo '{"sra_download.sra_id_list":["SRR13191702"],"sra_download.n_cpu":1}' > test-inputs.json
     - 
       name: Run workflow with miniwdl
       run: |
@@ -80,13 +73,7 @@ jobs:
         EOL
     - 
       name: Create options JSON
-      run: |
-        cat > test-options.json << EOL
-        {
-          "final_workflow_outputs_dir": "$PWD/test-output/cromwell",
-          "use_relative_output_paths": true
-        }
-        EOL
+      run: echo '{"sra_download.sra_id_list":["SRR13191702"],"sra_download.n_cpu":1}' > test-inputs.json
     - 
       name: Run workflow with Cromwell
       run: |
@@ -127,13 +114,7 @@ jobs:
       run: cargo install sprocket --version 0.12.2
     - 
       name: Create test input JSON
-      run: |
-        cat > test-inputs.json << EOL
-        {
-          "sra_download.sra_id_list": ["SRR13191702"],
-          "sra_download.n_cpu": 1,
-        }
-        EOL
+      run: echo '{"sra_download.sra_id_list":["SRR13191702"],"sra_download.n_cpu":1}' > test-inputs.json
     - 
       name: Run workflow with Sprocket
       run: sprocket run --output test-output/sprocket ww-sra.wdl test-inputs.json
