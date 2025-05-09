@@ -31,17 +31,15 @@ jobs:
         cat > test-inputs.json << EOL
         {
           "sra_download.sra_id_list": ["SRR13191702"],
-          "n_cpu": 1
+          "sra_download.n_cpu": 1
         }
         EOL
         # Using a small RNA-seq dataset that downloads quickly
-        
     - 
       name: Run workflow with miniwdl
       run: |
         mkdir -p test-output/miniwdl
         miniwdl run ww-sra.wdl -i test-inputs.json --dir test-output/miniwdl
-        
     -
       name: Check for output files
       run: |
@@ -71,7 +69,6 @@ jobs:
       name: Download Cromwell
       run: |
         wget -q https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
-        
     - 
       name: Create test input JSON
       run: |
@@ -81,7 +78,6 @@ jobs:
           "sra_download.n_cpu": 1
         }
         EOL
-        
     - 
       name: Create options JSON
       run: |
@@ -91,13 +87,11 @@ jobs:
           "use_relative_output_paths": true
         }
         EOL
-        
     - 
       name: Run workflow with Cromwell
       run: |
         mkdir -p test-output/cromwell
         java -jar cromwell-86.jar run ww-sra.wdl -i test-inputs.json -o test-options.json
-        
     -
       name: Check for output files
       run: |
@@ -134,10 +128,10 @@ jobs:
     - 
       name: Create test input JSON
       run: |
-        cat > test-inputs.json << 'EOL'
+        cat > test-inputs.json << EOL
         {
           "sra_download.sra_id_list": ["SRR13191702"],
-          "sra_download.n_cpu": 1
+          "sra_download.n_cpu": 1,
         }
         EOL        
     - 
