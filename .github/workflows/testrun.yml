@@ -144,7 +144,7 @@ jobs:
       name: Run workflow with Sprocket
       run: |
         mkdir -p test-output/sprocket
-        sprocket run --output test-output/sprocket ww-sra.wdl test-inputs.json
+        sprocket run --output test-output/sprocket --overwrite ww-sra.wdl test-inputs.json
     -
       name: Check for output files
       run: |
