@@ -60,9 +60,6 @@ jobs:
     - 
       name: Checkout
       uses: actions/checkout@v4
-    -
-      name: Check for ShellCheck
-      run: which shellcheck
     - 
       name: Sprocket Linting
       uses: stjude-rust-labs/sprocket-action@main
