@@ -134,7 +134,7 @@ jobs:
     - 
       name: Create test input JSON
       run: |
-        cat > test-inputs.json << EOL
+        cat > test-inputs.json << 'EOL'
         {
           "sra_download.sra_id_list": ["SRR13191702"],
           "sra_download.n_cpu": 1
