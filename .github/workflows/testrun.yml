@@ -133,7 +133,7 @@ jobs:
           "sra_download.sra_id_list": ["SRR13191702"],
           "sra_download.n_cpu": 1,
         }
-        EOL        
+        EOL
     - 
       name: Run workflow with Sprocket
       run: sprocket run --output test-output/sprocket ww-sra.wdl test-inputs.json
