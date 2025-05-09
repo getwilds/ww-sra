@@ -116,7 +116,7 @@ jobs:
         # If the outputs aren't in the expected directory, check the execution directory
         find $WORKFLOW_DIR -name "*.fastq.gz" | sort
   
-  sprocket-lint:
+  sprocket-test:
     runs-on: ubuntu-latest
     steps:
     - 
@@ -144,7 +144,7 @@ jobs:
       name: Run workflow with Sprocket
       run: |
         mkdir -p test-output/sprocket
-        sprocket run --output-directory test-output/sprocket ww-sra.wdl test-inputs.json
+        sprocket run --output test-output/sprocket ww-sra.wdl test-inputs.json
     -
       name: Check for output files
       run: |
