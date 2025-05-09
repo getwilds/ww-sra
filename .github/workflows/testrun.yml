@@ -64,16 +64,10 @@ jobs:
         wget -q https://github.com/broadinstitute/cromwell/releases/download/86/cromwell-86.jar
     - 
       name: Create test input JSON
-      run: |
-        cat > test-inputs.json << EOL
-        {
-          "sra_download.sra_id_list": ["SRR13191702"],
-          "sra_download.n_cpu": 1
-        }
-        EOL
+      run: echo '{"sra_download.sra_id_list":["SRR13191702"],"sra_download.n_cpu":1}' > test-inputs.json
     - 
       name: Create options JSON
-      run: echo '{"sra_download.sra_id_list":["SRR13191702"],"sra_download.n_cpu":1}' > test-inputs.json
+      run: echo '{"final_workflow_outputs_dir":"$PWD/test-output/cromwell","use_relative_output_paths":true}' > test-options.json
     - 
       name: Run workflow with Cromwell
       run: |
