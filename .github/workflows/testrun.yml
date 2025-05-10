@@ -6,7 +6,7 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - '**.wdl'
-      - '.github/workflows/test-run.yml'
+      - '.github/workflows/testrun.yml'
 
 jobs:
   miniwdl-test:
@@ -104,8 +104,11 @@ jobs:
         toolchain: stable
         override: true
     - 
+      name: Install cargo-binstall
+      run: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+    - 
       name: Install Sprocket
-      run: cargo install sprocket --version 0.12.2
+      run: cargo-binstall sprocket --version 0.12.2
     - 
       name: Create test input JSON
       run: echo '{"sra_download.sra_id_list":["SRR13191702"],"sra_download.n_cpu":1}' > test-inputs.json
