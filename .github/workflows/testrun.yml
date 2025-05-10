@@ -6,7 +6,7 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - '**.wdl'
-      - '.github/workflows/test-run.yml'
+      - '.github/workflows/testrun.yml'
 
 jobs:
   miniwdl-test:
